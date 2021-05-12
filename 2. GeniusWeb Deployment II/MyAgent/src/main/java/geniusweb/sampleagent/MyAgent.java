@@ -77,15 +77,15 @@ public class MyAgent extends DefaultParty {
                     lastReceivedBid = ((Offer) otheract).getBid();
                 }
             } else if (info instanceof YourTurn) {
+                if (progress instanceof ProgressRounds) {
+                    progress = ((ProgressRounds) progress).advance();
+                }
                 myTurn();
             } else if (info instanceof Finished) {
                 getReporter().log(Level.INFO, "Final outcome:" + info);
             }
         } catch (Exception e) {
             throw new RuntimeException("Failed to handle info", e);
-        }
-        if (progress instanceof ProgressRounds) {
-            progress = ((ProgressRounds) progress).advance();
         }
     }
 
